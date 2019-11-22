@@ -1,0 +1,52 @@
+#include <mbed.h>
+Serial pc(USBTX,USBRX);
+Serial bt(D8,D2);
+
+int main() {
+  uint8_t ch=0;
+  char a[14]="Enter AT Mode";
+  pc.baud(38400);
+  bt.baud(38400);
+  pc.printf("%s\n",a);
+
+  while(1) {
+    
+        if(bt.readable())
+        {
+            ch=bt.getc();
+            pc.printf("%c",ch);
+            //bt.printf("%c",ch);
+        }
+        
+        else if(pc.readable())
+        {
+            ch=pc.getc();
+            bt.printf("%c",ch);
+            pc.printf("%c",ch); 
+        }
+  }
+}
+
+
+
+
+
+
+
+
+
+#include "mbed.h"
+Serial pc(USBTX, USBRX); // tx, rx
+AnalogIn analog_value_x(A0);
+AnalogIn analog_value_y(A1);
+DigitalIn button1A(D2);
+int main() {
+  printf("Karn");
+	while(1){	
+	//pc.printf("X Value = %.2f\r", analog_value_x.read() * 3.3);
+	//pc.printf("                  Y Value = %.2f\n\r", analog_value_y.read() * 3.3);
+	pc.printf("%d", button1A.read());
+  wait(0.1);
+
+	}
+}
